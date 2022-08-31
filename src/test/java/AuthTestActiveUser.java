@@ -6,6 +6,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class AuthTestActiveUser {
@@ -15,8 +19,12 @@ public class AuthTestActiveUser {
 
     static LoginPage request = new LoginPage();
     static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "active");
-    //RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
+    static RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
 
+    @BeforeAll
+    static void setUpAll() {
+        Request.post(Request.requestSpec(), info, "/api/system/users", 200);
+    }
 
     @Test
     public void shouldSuccessTest() {
@@ -42,14 +50,14 @@ public class AuthTestActiveUser {
     @Test
     public void shouldInvalidLoginTest() {
         Configuration.holdBrowserOpen=true;
-        request.authorization(info.getLogin(), info.getPassword());//
+        request.authorization(wrongInfo.getLogin(), info.getPassword());
         request.error();
     }
 
     @Test
     public void shouldInvalidPasswordTest() {
         Configuration.holdBrowserOpen=true;
-        request.authorization(info.getLogin(), info.getPassword());//
+        request.authorization(info.getLogin(), wrongInfo.getPassword());
         request.error();
     }
 }

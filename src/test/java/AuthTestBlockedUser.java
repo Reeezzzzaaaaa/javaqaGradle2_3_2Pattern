@@ -13,8 +13,12 @@ public class AuthTestBlockedUser {
 
     static LoginPage request = new LoginPage();
     static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "blocked");
-    //RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
+    static RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "blocked");
 
+    @BeforeAll
+    static void setUpAll() {
+        Request.post(Request.requestSpec(), info, "/api/system/users", 200);
+    }
 
     @Test
     public void shouldBlockedUserTest() {
@@ -40,14 +44,14 @@ public class AuthTestBlockedUser {
     @Test
     public void shouldInvalidLoginTest() {
         Configuration.holdBrowserOpen=true;
-        request.authorization(info.getLogin(), info.getPassword());//
+        request.authorization(wrongInfo.getLogin(), info.getPassword());
         request.error();
     }
 
     @Test
     public void shouldInvalidPasswordTest() {
         Configuration.holdBrowserOpen=true;
-        request.authorization(info.getLogin(), info.getPassword());//
+        request.authorization(info.getLogin(), wrongInfo.getPassword());
         request.error();
     }
 }

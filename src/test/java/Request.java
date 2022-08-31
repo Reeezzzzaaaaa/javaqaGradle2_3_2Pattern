@@ -8,35 +8,24 @@ import static io.restassured.RestAssured.given;
 
 @UtilityClass
 public class Request {
-    public static RequestSpecification requestSpec(String baseUri, int port, ContentType accept, ContentType contentType, LogDetail log) {
+
+    public static RequestSpecification requestSpec() {
         return new RequestSpecBuilder()
-                .setBaseUri(baseUri)
-                .setPort(port)
-                .setAccept(accept)
-                .setContentType(contentType)
-                .log(log)
+                .setBaseUri("http://localhost")
+                .setPort(9999)
+                .setAccept(ContentType.JSON)
+                .setContentType(ContentType.JSON)
+                .log(LogDetail.ALL)
                 .build();
     }
-    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "active");
-    //RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
 
-    public static void postActive(RequestSpecification spec, Object body, String path, int statusCode) {
-        given() // "дано"
-                .spec(Request.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL)) // указываем, какую спецификацию используем
-                .body(info) // передаём в теле объект, который будет преобразован в JSON
-                .when() // "когда"
-                .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
-                .then() // "тогда ожидаем"
-                .statusCode(200); // код 200 OK
-    }
-
-    public static void postBlocked(RequestSpecification spec, Object body, String path, int statusCode) {
-        given() // "дано"
-                .spec(Request.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL)) // указываем, какую спецификацию используем
-                .body(info) // передаём в теле объект, который будет преобразован в JSON/////////////
-                .when() // "когда"
-                .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
-                .then() // "тогда ожидаем"
-                .statusCode(200); // код 200 OK
+    public static void post(RequestSpecification spec, Object body, String path, int statusCode) {
+        given()
+                .spec(spec)
+                .body(body)
+                .when()
+                .post(path)
+                .then()
+                .statusCode(statusCode);
     }
 }
