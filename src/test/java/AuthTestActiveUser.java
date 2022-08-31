@@ -6,64 +6,50 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Selenide.$x;
+
 public class AuthTestActiveUser {
-
-    static LoginPage request = new LoginPage();
-    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "active");
-    RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
-
-    @BeforeAll
-    static void setUpAll() {
-        RequestSpecification requestSpec = Request.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL);
-        Request.post(requestSpec, info, "/api/system/users", 200);
-    }
 
     @BeforeEach
     public void openPage() {request.openPage();}
+
+    static LoginPage request = new LoginPage();
+    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "active");
+    //RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
 
 
     @Test
     public void shouldSuccessTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(info.getLogin());
-        request.password(info.getPassword());
-        request.click();
+        request.authorization(info.getLogin(), info.getPassword());
         request.account(3);
     }
 
     @Test
     public void shouldEmptyLoginTest() {
         Configuration.holdBrowserOpen=true;
-        request.login("");
-        request.password(info.getPassword());
-        request.click();
+        request.authorization("", info.getPassword());
         request.loginFieldFiling();
     }
 
     @Test
     public void shouldEmptyPasswordTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(info.getLogin());
-        request.password("");
-        request.click();
+        request.authorization(info.getLogin(), "");
         request.passwordFieldFiling();
     }
 
     @Test
     public void shouldInvalidLoginTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(wrongInfo.getLogin());
-        request.password(info.getPassword());
-        request.click();
+        request.authorization(info.getLogin(), info.getPassword());//
         request.error();
     }
 
     @Test
     public void shouldInvalidPasswordTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(info.getLogin());
-        request.password(wrongInfo.getPassword());
-        request.click();
+        request.authorization(info.getLogin(), info.getPassword());//
         request.error();
     }
 }

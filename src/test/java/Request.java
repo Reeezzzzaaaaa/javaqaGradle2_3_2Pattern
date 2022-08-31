@@ -17,14 +17,26 @@ public class Request {
                 .log(log)
                 .build();
     }
+    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "active");
+    //RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
 
-    public static void post(RequestSpecification spec, Object body, String path, int statusCode) {
+    public static void postActive(RequestSpecification spec, Object body, String path, int statusCode) {
         given() // "дано"
-                .spec(spec) // указываем, какую спецификацию используем
-                .body(body) // передаём в теле объект, который будет преобразован в JSON
+                .spec(Request.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL)) // указываем, какую спецификацию используем
+                .body(info) // передаём в теле объект, который будет преобразован в JSON
                 .when() // "когда"
-                .post(path) // на какой путь, относительно BaseUri отправляем запрос
+                .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
                 .then() // "тогда ожидаем"
-                .statusCode(statusCode); // код 200 OK
+                .statusCode(200); // код 200 OK
+    }
+
+    public static void postBlocked(RequestSpecification spec, Object body, String path, int statusCode) {
+        given() // "дано"
+                .spec(Request.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL)) // указываем, какую спецификацию используем
+                .body(info) // передаём в теле объект, который будет преобразован в JSON/////////////
+                .when() // "когда"
+                .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
+                .then() // "тогда ожидаем"
+                .statusCode(200); // код 200 OK
     }
 }

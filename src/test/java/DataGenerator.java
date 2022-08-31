@@ -12,9 +12,9 @@ public class DataGenerator {
             return new RegistrationInfo(faker.name().username(), faker.internet().password(), status);
         }
 
-        public static RegistrationInfo registrationWrongInfo(String locale, String status) {
-            Faker faker = new Faker(new Locale(locale));
-            return new RegistrationInfo(faker.name().username(), faker.internet().password(), status);
-        }
+        //public static RegistrationInfo registrationWrongInfo(String locale, String status) {
+        //    Faker faker = new Faker(new Locale(locale));
+        //    return new RegistrationInfo(faker.name().username(), faker.internet().password(), status);
+        //}
     }
 }

@@ -8,62 +8,46 @@ import org.junit.jupiter.api.Test;
 
 public class AuthTestBlockedUser {
 
-    static LoginPage request = new LoginPage();
-    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "blocked");
-    RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "blocked");
-
-    @BeforeAll
-    static void setUpAll() {
-        RequestSpecification requestSpec = Request.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL);
-        Request.post(requestSpec, info, "/api/system/users", 200);
-    }
-
     @BeforeEach
     public void openPage() {request.openPage();}
+
+    static LoginPage request = new LoginPage();
+    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "blocked");
+    //RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
 
 
     @Test
     public void shouldBlockedUserTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(info.getLogin());
-        request.password(info.getPassword());
-        request.click();
+        request.authorization(info.getLogin(), info.getPassword());
         request.error();
     }
 
     @Test
     public void shouldEmptyLoginTest() {
         Configuration.holdBrowserOpen=true;
-        request.login("");
-        request.password(info.getPassword());
-        request.click();
+        request.authorization("", info.getPassword());
         request.loginFieldFiling();
     }
 
     @Test
     public void shouldEmptyPasswordTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(info.getLogin());
-        request.password("");
-        request.click();
+        request.authorization(info.getLogin(), "");
         request.passwordFieldFiling();
     }
 
     @Test
     public void shouldInvalidLoginTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(wrongInfo.getLogin());
-        request.password(info.getPassword());
-        request.click();
+        request.authorization(info.getLogin(), info.getPassword());//
         request.error();
     }
 
     @Test
     public void shouldInvalidPasswordTest() {
         Configuration.holdBrowserOpen=true;
-        request.login(info.getLogin());
-        request.password(wrongInfo.getPassword());
-        request.click();
+        request.authorization(info.getLogin(), info.getPassword());//
         request.error();
     }
 }
