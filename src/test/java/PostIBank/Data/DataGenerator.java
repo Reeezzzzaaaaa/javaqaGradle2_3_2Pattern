@@ -1,7 +1,7 @@
+package PostIBank.Data;
+
+import PostIBank.Info.RegistrationInfo;
 import com.github.javafaker.Faker;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import lombok.experimental.UtilityClass;
 
 import java.util.Locale;

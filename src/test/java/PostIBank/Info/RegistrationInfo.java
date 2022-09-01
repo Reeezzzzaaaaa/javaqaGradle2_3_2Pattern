@@ -1,3 +1,5 @@
+package PostIBank.Info;
+
 import lombok.Data;
 
 @Data

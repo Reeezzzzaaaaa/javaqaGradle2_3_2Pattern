@@ -1,4 +1,4 @@
-import com.codeborne.selenide.Condition;
+package PostIBank.Page;
 
 import java.time.Duration;
 
