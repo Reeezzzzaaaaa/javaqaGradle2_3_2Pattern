@@ -10,9 +10,10 @@ import org.junit.jupiter.api.Test;
 public class AuthTestBlockedUser {
 
     @BeforeEach
-    public void openPage() {request.openPage();}
+    public void openPage() {
+        LoginPage request = new LoginPage();
+        request.openPage();}
 
-    static LoginPage request = new LoginPage();
     static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "blocked");
     static RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "blocked");
 
@@ -24,6 +25,7 @@ public class AuthTestBlockedUser {
     @Test
     public void shouldBlockedUserTest() {
         Configuration.holdBrowserOpen=true;
+        LoginPage request = new LoginPage();
         request.authorization(info.getLogin(), info.getPassword());
         request.error();
     }
@@ -31,6 +33,7 @@ public class AuthTestBlockedUser {
     @Test
     public void shouldEmptyLoginTest() {
         Configuration.holdBrowserOpen=true;
+        LoginPage request = new LoginPage();
         request.authorization("", info.getPassword());
         request.loginFieldFiling();
     }
@@ -38,6 +41,7 @@ public class AuthTestBlockedUser {
     @Test
     public void shouldEmptyPasswordTest() {
         Configuration.holdBrowserOpen=true;
+        LoginPage request = new LoginPage();
         request.authorization(info.getLogin(), "");
         request.passwordFieldFiling();
     }
@@ -45,6 +49,7 @@ public class AuthTestBlockedUser {
     @Test
     public void shouldInvalidLoginTest() {
         Configuration.holdBrowserOpen=true;
+        LoginPage request = new LoginPage();
         request.authorization(wrongInfo.getLogin(), info.getPassword());
         request.error();
     }
@@ -52,6 +57,7 @@ public class AuthTestBlockedUser {
     @Test
     public void shouldInvalidPasswordTest() {
         Configuration.holdBrowserOpen=true;
+        LoginPage request = new LoginPage();
         request.authorization(info.getLogin(), wrongInfo.getPassword());
         request.error();
     }
