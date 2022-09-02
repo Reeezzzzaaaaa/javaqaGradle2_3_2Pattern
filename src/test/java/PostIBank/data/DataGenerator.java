@@ -1,6 +1,6 @@
-package PostIBank.Data;
+package PostIBank.data;
 
-import PostIBank.Info.RegistrationInfo;
+import PostIBank.info.RegistrationInfo;
 import com.github.javafaker.Faker;
 import lombok.experimental.UtilityClass;
 

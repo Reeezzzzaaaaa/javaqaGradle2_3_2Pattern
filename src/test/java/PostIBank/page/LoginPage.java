@@ -1,4 +1,4 @@
-package PostIBank.Page;
+package PostIBank.page;
 
 import java.time.Duration;
 

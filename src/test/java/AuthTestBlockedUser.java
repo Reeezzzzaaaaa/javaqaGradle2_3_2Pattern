@@ -1,7 +1,7 @@
-import PostIBank.Data.DataGenerator;
-import PostIBank.Data.Request;
-import PostIBank.Info.RegistrationInfo;
-import PostIBank.Page.LoginPage;
+import PostIBank.data.DataGenerator;
+import PostIBank.data.Request;
+import PostIBank.info.RegistrationInfo;
+import PostIBank.page.LoginPage;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
