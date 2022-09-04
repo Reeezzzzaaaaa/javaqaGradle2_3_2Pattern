@@ -1,6 +1,5 @@
-package PostIBank.data;
+package postIBank.data;
 
-import PostIBank.info.RegistrationInfo;
 import com.github.javafaker.Faker;
 import lombok.experimental.UtilityClass;
 
@@ -13,11 +12,6 @@ public class DataGenerator {
         public static RegistrationInfo registrationInfo(String locale, String status) {
             Faker faker = new Faker(new Locale(locale));
             return new RegistrationInfo(faker.name().username(), faker.internet().password(), status);
-        }
-
-        public static RegistrationInfo registrationWrongInfo(String locale, String status) {
-            Faker faker = new Faker(new Locale(locale));
-            return new RegistrationInfo(faker.funnyName().name(), faker.starTrek().location(), status);
         }
     }
 }

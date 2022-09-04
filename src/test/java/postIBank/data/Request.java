@@ -1,4 +1,4 @@
-package PostIBank.data;
+package postIBank.data;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;

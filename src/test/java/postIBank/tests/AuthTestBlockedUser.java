@@ -1,21 +1,25 @@
-import PostIBank.data.DataGenerator;
-import PostIBank.data.Request;
-import PostIBank.info.RegistrationInfo;
-import PostIBank.page.LoginPage;
+package postIBank.tests;
+
+import postIBank.data.DataGenerator;
+import postIBank.data.RegistrationInfo;
+import postIBank.data.Request;
+import postIBank.page.LoginPage;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AuthTestActiveUser {
+import static com.codeborne.selenide.Selenide.open;
+
+public class AuthTestBlockedUser {
 
     @BeforeEach
     public void openPage() {
-        LoginPage request = new LoginPage();
-        request.openPage();}
+        Configuration.holdBrowserOpen = true;
+        open("http://localhost:9999/");
+    }
 
-    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "active");
-    static RegistrationInfo wrongInfo = DataGenerator.Registration.registrationWrongInfo("en", "active");
+    static RegistrationInfo info = DataGenerator.Registration.registrationInfo("en", "blocked");
 
     @BeforeAll
     static void setUpAll() {
@@ -23,16 +27,14 @@ public class AuthTestActiveUser {
     }
 
     @Test
-    public void shouldSuccessTest() {
-        Configuration.holdBrowserOpen=true;
+    public void shouldBlockedUserTest() {
         LoginPage request = new LoginPage();
         request.authorization(info.getLogin(), info.getPassword());
-        request.account(3);
+        request.error();
     }
 
     @Test
     public void shouldEmptyLoginTest() {
-        Configuration.holdBrowserOpen=true;
         LoginPage request = new LoginPage();
         request.authorization("", info.getPassword());
         request.loginFieldFiling();
@@ -40,7 +42,6 @@ public class AuthTestActiveUser {
 
     @Test
     public void shouldEmptyPasswordTest() {
-        Configuration.holdBrowserOpen=true;
         LoginPage request = new LoginPage();
         request.authorization(info.getLogin(), "");
         request.passwordFieldFiling();
@@ -48,17 +49,15 @@ public class AuthTestActiveUser {
 
     @Test
     public void shouldInvalidLoginTest() {
-        Configuration.holdBrowserOpen=true;
         LoginPage request = new LoginPage();
-        request.authorization(wrongInfo.getLogin(), info.getPassword());
+        request.authorization(info.getLogin(), info.getLogin());
         request.error();
     }
 
     @Test
     public void shouldInvalidPasswordTest() {
-        Configuration.holdBrowserOpen=true;
         LoginPage request = new LoginPage();
-        request.authorization(info.getLogin(), wrongInfo.getPassword());
+        request.authorization(info.getPassword(), info.getPassword());
         request.error();
     }
 }

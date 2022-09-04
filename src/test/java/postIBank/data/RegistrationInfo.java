@@ -1,4 +1,4 @@
-package PostIBank.info;
+package postIBank.data;
 
 import lombok.Data;
 
