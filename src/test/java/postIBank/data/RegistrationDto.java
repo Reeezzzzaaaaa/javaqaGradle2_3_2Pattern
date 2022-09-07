@@ -3,7 +3,7 @@ package postIBank.data;
 import lombok.Data;
 
 @Data
-public class RegistrationInfo {
+public class RegistrationDto {
     private final String login;
     private final String password;
     private final String status;

@@ -1,5 +1,8 @@
 package postIBank.page;
 
+import postIBank.data.DataGenerator;
+import postIBank.data.RegistrationDto;
+
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
