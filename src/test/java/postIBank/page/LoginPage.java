@@ -1,5 +1,6 @@
 package postIBank.page;
 
+import com.codeborne.selenide.Condition;
 import postIBank.data.DataGenerator;
 import postIBank.data.RegistrationDto;
 
@@ -28,7 +29,15 @@ public class LoginPage {
         $x("//*[@data-test-id='password']//*[contains(text(), 'Поле обязательно')]").shouldBe(visible);
     }
 
-    public void error() {
-        $x("//*[@data-test-id='error-notification']//*[contains(text(), 'Ошибка')]").shouldBe(visible);
+    public void errorBlockedUser() {
+        $x("//*[@data-test-id='error-notification']//*[@class='notification__content']")
+                .shouldBe(visible)
+                .shouldHave(Condition.text("Пользователь заблокирован"));
+    }
+
+    public void errorActiveUser() {
+        $x("//*[@data-test-id='error-notification']//*[@class='notification__content']")
+                .shouldBe(visible)
+                .shouldHave(Condition.text("Неверно указан логин или пароль"));
     }
 }

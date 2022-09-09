@@ -31,7 +31,7 @@ public class AuthTestUser {
         LoginPage request = new LoginPage();
         var notRegisteredUser = DataGenerator.getUser("active");
         request.authorization(notRegisteredUser.getLogin(), notRegisteredUser.getPassword());
-        request.error();
+        request.errorActiveUser();
     }
 
     @Test
@@ -39,7 +39,7 @@ public class AuthTestUser {
         var registeredUser = DataGenerator.getRegisteredUser("blocked");
         LoginPage request = new LoginPage();
         request.authorization(registeredUser.getLogin(), registeredUser.getPassword());
-        request.error();
+        request.errorBlockedUser();
     }
 
     @Test
@@ -47,7 +47,7 @@ public class AuthTestUser {
         var registeredUser = DataGenerator.getRegisteredUser("active");
         LoginPage request = new LoginPage();
         request.authorization(DataGenerator.getRandomLogin(), registeredUser.getPassword());
-        request.error();
+        request.errorActiveUser();
     }
 
     @Test
@@ -55,6 +55,6 @@ public class AuthTestUser {
         var registeredUser = DataGenerator.getRegisteredUser("active");
         LoginPage request = new LoginPage();
         request.authorization(registeredUser.getLogin(), DataGenerator.getRandomPassword());
-        request.error();
+        request.errorActiveUser();
     }
 }
